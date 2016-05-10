@@ -81,6 +81,10 @@ def report(grid_scores, n_top=3):
         print("Parameters: {0}".format(score.parameters))
         print("")      
 
+
+# compute various sun-related features
+# at the approximate fognet location
+
 def sun_at_fognets():
     full_period=pd.date_range('2013-11-23 16:00:00',periods=9262, freq='2H')
     fognets = ephem.Observer()
@@ -151,6 +155,7 @@ def WindParse(df,colname):
     df.loc[df[colname] == 'Wind blowing from the north-northwest', 'WindDirection'] = 15
 
 
+# Parse wind directions into 3 factors
 def WindParse2(df,colname):
     df.loc[df[colname] == 'Calm, no wind', 'WindDirection1'] = 'nowind'
     df.loc[df[colname] == 'Calm, no wind', 'WindDirection2'] = 'nowind'
@@ -205,6 +210,7 @@ def WindParse2(df,colname):
     df.loc[df[colname] == 'Wind blowing from the north-northwest', 'WindDirection3'] = 'W'
 
 
+# Prase cloud cover as a numeric feature
 def CloudCoverParse(df,colname, dest_column = 'CloudCover'):
     df.loc[df[colname] == 'no clouds', dest_column] = 0
     df.loc[df[colname] == '10%  or less, but not 0', dest_column] = 5
@@ -216,6 +222,7 @@ def CloudCoverParse(df,colname, dest_column = 'CloudCover'):
     df.loc[df[colname] == '90  or more, but not 100%', dest_column] = 95    
     df.loc[df[colname] == '100%', dest_column] = 100
 
+# Prase cloud density as a numeric feature
 def CloudDensityParse(df,colname):
     df.loc[df[colname] == 'Overcast_(100%)', 'CloudDensity'] = 100
     df.loc[df[colname] == 'Broken_clouds_(60-90%)', 'CloudDensity'] = 75
@@ -224,6 +231,7 @@ def CloudDensityParse(df,colname):
     df.loc[df[colname] == 'No_Clouds_(0-0%)', 'CloudDensity'] = 0
 
 
+# Prase cloud height as a numeric feature
 def CloudHeigthParse(df,colname):
     df.loc[df[colname] == '50-100', 'CloudHeight'] = 75
     df.loc[df[colname] == '100-200', 'CloudHeight'] = 150
@@ -235,6 +243,9 @@ def CloudHeigthParse(df,colname):
     df.loc[df[colname] == '2500 or more, or no clouds', 'CloudHeight'] = 2500
 
 
+# Prase weather as a numeric feature
+# The higher the number the wetter the weather
+# the conversion is entirely arbitrary
 def WeatherParse(df,colname):
     """
 "Light rain, fog"
@@ -350,6 +361,10 @@ def TruncateTimeStampHours(ts, n_hours, hour_offset):
     return dt_ts_limit
 
 
+# the idea was to compute predictions based on aggregated time ranged
+# but I realized it is completely because, and it injects future data
+# however, this way I had the 3.05 score
+# For each aggregate the min + mean + max values are computed
 def GenerateGroupsBy(df,df_name, hours_grouped = 4):
     
         # Prepare groups by 2 hours step
@@ -471,6 +486,11 @@ def plot_importances(evaluation_list, set_to_plot, columns_selection = None):
         plt.xlim([-1, n_features])
         plt.show()
 
+# we have a list of models
+# For each one, we compute an rmse on the test set
+# on each interval on which 2 models compete, the one with
+# the best rmse will be kept
+# this function is deprecated in favor of the next one
 def compare_evaluations(evaluation_list, sub_form):
 
     if 0:
@@ -530,15 +550,14 @@ def compare_evaluations(evaluation_list, sub_form):
     return comparison_list
 
 
+# we have a list of models
+# For each one, we compute an rmse on the 4 folds of the cv_list
+# on each interval on which 2 models compete, the one with
+# the best rmse will be kept
 def compare_evaluations2(evaluation_list, sub_form, cv_list):
     from sklearn import clone
     global regressors_dict
     
-    if 0:
-        sub_form = lin_model[lin_model['is_train'] == True]
-        sub_form = sub_form[ (sub_form.index.day <= 4) & (sub_form.index.day >= 1)]
-        
-        sub_form = sub_form.join(agadir_model_train.loc[valid_indices,'yield_agadir_predicted'],how='left')
     
     for evaluation_set in evaluation_list:
         (pred_valid, valid_set_y, train_model, valid_indices, set_name, work_model, pred_test, best_params) = evaluation_set
@@ -630,7 +649,7 @@ def compare_evaluations2(evaluation_list, sub_form, cv_list):
             f = gzip.open( regressors_file,"wb")
             cPickle.dump((estimator1_list, custom_cv1, columns_selection1), f, cPickle.HIGHEST_PROTOCOL)
             f.close()
-            regressors_dict[set_name] = (estimator1_list, custom_cv, columns_selection1)
+            regressors_dict[set_name] = (estimator1_list, custom_cv1, columns_selection1)
             
         for evaluation_set2 in evaluation_list:
             if idx_set_2 <= idx_set_1:
@@ -924,7 +943,8 @@ def eval_folded(evaluation_list, cv_list, set_name_param):
         
         return y_pred
 
-
+# process_comparisons returns the sorted list of models
+# according to their rmse
 def process_comparisons(comparison_list):
     df_comp = pd.DataFrame(columns=('rmse1div2', 'set1','set2', 'c_size','rmse1','rmse2'))
     i=0
@@ -1008,14 +1028,6 @@ def generate_valid_sub(evaluation_list, sub_form, cv_list):
     rmse = np.sqrt(mean_squared_error(y, y_hat))
     print("rmse=",rmse)
 
-    ref = "micro2_full_nulls"
-    if 0:
-        y_hat = sub_form.loc[np.logical_not(sub_form['yield_%s' % ref ].isnull()),'yield_%s' % ref].as_matrix()
-        y = sub_form.loc[np.logical_not(sub_form['yield_predicted'].isnull()),'yield'].as_matrix()
-    
-        rmse_vanilla = np.sqrt(mean_squared_error(y, y_hat))
-        print("rmse %s=" % ref,rmse_vanilla)
-
     print("Missing predicts for submit:", np.sum(sub_form_valid['yield'].isnull()))
     #sub_form_valid.loc[sub_form['yield'].isnull(), 'yield'] = sub_form_valid['yield_lin']
     
@@ -1080,24 +1092,17 @@ def generate_valid_sub2(evaluation_list, sub_form, cv_list, comparison_list):
     rmse = np.sqrt(mean_squared_error(y, y_hat))
     print("rmse=",rmse)
 
-    ref = "micro2_full_nulls"
-    if 0:
-        y_hat = sub_form.loc[np.logical_not(sub_form['yield_%s' % ref ].isnull()),'yield_%s' % ref].as_matrix()
-        y = sub_form.loc[np.logical_not(sub_form['yield_predicted'].isnull()),'yield'].as_matrix()
-    
-        rmse_vanilla = np.sqrt(mean_squared_error(y, y_hat))
-        print("rmse %s=" % ref,rmse_vanilla)
-
     print("Missing predicts for submit:", np.sum(sub_form_valid['yield'].isnull()))
     #sub_form_valid.loc[sub_form['yield'].isnull(), 'yield'] = sub_form_valid['yield_lin']
     
     sub_form_valid[['yield']].to_csv('fognet_sub2_%f.csv' % rmse)
     sub_form_valid[['yield','yield_source']].to_csv('fognet_sub2_source_%f.csv' % rmse)
     
-     
+
+# compute 4 cv_list
+# we take 4 days of sequential data for thefirst cv,
+# then 4 days for the second cv , etc     
 def compute_cv_ranges(lin_model):
-    #full_period=pd.date_range('2013-11-23 16:00:00',periods=9262, freq='2H')
-    #lin_model_by_day =  lin_model.groupby(lambda x: pd.to_datetime("%s-%s-%s" % ( x.year, x.month, x.day ) ) ).max()[['is_train']]
     cv_1 = []
     cv_2 = []
     cv_3 = []
@@ -1129,7 +1134,8 @@ def compute_cv_ranges(lin_model):
     return cv_list
         
         
-    
+# the following methods construct a model
+#     
 def process_model(df_model, columns_selection, regressor, cv_list, param_dist, need_scale = False, need_eval_set = False, fit_params=None):
     from sklearn import clone
     
@@ -1138,11 +1144,6 @@ def process_model(df_model, columns_selection, regressor, cv_list, param_dist, n
     y = df_model.loc[df_model['is_train'] == True, "yield" ].as_matrix().astype(np.float32)
     
     df_model_train = df_model.loc[df_model['is_train'] == True].copy()
-    #valid_indices = (df_model_train.index.day <= 4) & (df_model_train.index.day >= 1)
-    
-    #cv_fold_1 = (df_model_train.index.day <= 12) & (df_model_train.index.day >= 5)
-    #cv_fold_2 = (df_model_train.index.day <= 20) & (df_model_train.index.day >= 13)
-    #cv_fold_3 = (df_model_train.index.day <= 31) & (df_model_train.index.day >= 21)
     
     valid_indices = np.zeros(len(df_model_train), dtype=bool)
     for ts in cv_list[0]:
@@ -1179,10 +1180,7 @@ def process_model(df_model, columns_selection, regressor, cv_list, param_dist, n
 
     n_iter_search = 10
 
-    #eval_set=[(valid_set_x, valid_set_y)]
-    #random_search = RandomizedSearchCV(regressor, param_distributions=param_dist,n_jobs=1,n_iter=n_iter_search,verbose=3,fit_params={'eval_metric':'rmse','eval_set':eval_set,'early_stopping_rounds':50},cv=custom_cv, scoring = rmse_scoring, refit = False )
     random_search =GridSearchCV(regressor, param_grid=param_dist,n_jobs=1,verbose=1,fit_params={'eval_metric':'rmse','eval_set':eval_set,'early_stopping_rounds':50, 'verbose':False},cv=custom_cv, scoring = rmse_scoring, refit = False )
-    #random_search = RandomizedSearchCV(regressor, param_distributions=param_dist,n_jobs=1,n_iter=n_iter_search,verbose=3,fit_params={'eval_metric':'rmse'},cv=5)
     random_search.fit(X, y)
     
     print("best params:", random_search.best_params_)
@@ -1203,6 +1201,9 @@ def process_model(df_model, columns_selection, regressor, cv_list, param_dist, n
     return (pred_model_valid, valid_set_y, df_model_train, valid_indices, y_pred, random_search.best_params_) 
     
 
+# adapted from an example on stackoverflow
+# this version is actually buggy - it becomes extremely slow with hundreds of features
+# the"break" has to be removed, instead we have to take care to not remove twice the same column
 def remove_correlated_features(df_model, columns_selection, corr_threshold = 0.99, verbose=True):
     from itertools import chain
     
@@ -1219,7 +1220,6 @@ def remove_correlated_features(df_model, columns_selection, corr_threshold = 0.9
         
         
         for corr_set in ones.groupby('level_0').agg(lambda x: set(chain(x.level_0, x.level_1))).values :
-            #print "Correlation set:", corr_set
             corr_set = corr_set[0]
             first_elem = True
             for col in corr_set:

@@ -530,20 +530,7 @@ if 1:
             # in order to compute models  with different feature and different feature aggregations
             # for each set of featre it will compute "best" hyper parameters for xgboost
 
-            if 0:
-                if 0:
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi_pa, 24, "sidi_pa_24") ], set_name = "sidi_pa_24", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi_Tg, 24, "sidi_tg_24") ], set_name = "sidi_tg_24", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi_avg_rain, 24, "sidi_avg_24") ], set_name = "sidi_avg_24", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi_pa, 24, "sidi_pa_24"), (sidi_wind, 24, "sidi_wind_24")   ], set_name = "sidi_pawind_24", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi_pa, 24, "sidi_pa_24"), (sidi_wind, 24, "sidi_wind_24"), (sidi_avg_rain, 24, "sidi_avg_24")   ], set_name = "sidi_pawindavg_24", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi_pa, 24, "sidi_pa_24"), (sidi_wind, 24, "sidi_wind_24"), (sidi_avg_rain, 24, "sidi_avg_24"), (sidi_Tg, 24, "sidi_tg_24")   ], set_name = "sidi_pawindavgtg_24", evaluations_list =  evaluations_list, cv_list = cv_list )
-    
-                    f = gzip.open("fognet_compare_test_sidi24.gz","wb")
-                    cPickle.dump( (evaluations_list, sub_form) , f,cPickle.HIGHEST_PROTOCOL)
-                    f.close()         
-                else:
+            if 1:
                     # best 759 results
                     add_eval_sets(work_model = work_model, set_list = [ (sidi_wind, 24, "sidi_wind_24") ], set_name = "sidi_wind_24", evaluations_list =  evaluations_list, cv_list = cv_list )
                     add_eval_sets(work_model = work_model, set_list = [ (sidi, 24, "sidi_24") ], set_name = "sidi_24", evaluations_list =  evaluations_list, cv_list = cv_list )
@@ -565,24 +552,6 @@ if 1:
                     f.close()         
                 
 
-                if 0:
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi, 6, "sidi_6") ], set_name = "sidi_6", evaluations_list =  evaluations_list, cv_list = cv_list )            
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi_wind, 6, "sidi_wind_6") ], set_name = "sidi_wind_6", evaluations_list =  evaluations_list, cv_list = cv_list )            
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi_pa, 6, "sidi_pa_6") ], set_name = "sidi_pa_6", evaluations_list =  evaluations_list, cv_list = cv_list )            
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi_avg_rain, 6, "sidi_avg_6") ], set_name = "sidi_avg_6", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi_Tg, 6, "sidi_tg_6") ], set_name = "sidi_tg_6", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi, 6, "sidi_6"), (sidi_wind, 6, "sidi_wind_6") ], set_name = "sidi_wwind_6", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi, 6, "sidi_6"), (sidi_pa, 6, "sidi_pa_6") ], set_name = "sidi_wpa_6", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi, 6, "sidi_6"), (sidi_avg_rain, 6, "sidi_avg_6") ], set_name = "sidi_wavg_6", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi, 6, "sidi_6"), (sidi_Tg, 6, "sidi_tg_6") ], set_name = "sidi_wtg_6", evaluations_list =  evaluations_list, cv_list = cv_list )
-        
-                    add_eval_sets(work_model = work_model, set_list = [ (sidi, 6, "sidi_6"),(sidi_pa, 6, "sidi_pa_6"),(sidi_wind, 6, "sidi_wind_6"), (sidi_avg_rain, 6, "sidi_avg_6"), (sidi_Tg, 6, "sidi_tg_6")   ], set_name = "sidi_pawindavgtg_6", evaluations_list =  evaluations_list, cv_list = cv_list )
-        
-                    f = gzip.open("fognet_compare_test_sidi6.gz","wb")
-                    cPickle.dump( (evaluations_list, sub_form) , f,cPickle.HIGHEST_PROTOCOL)
-                    f.close()         
-                else:                
                     add_eval_sets(work_model = work_model, set_list = [ (sidi_wind, 6, "sidi_wind_6") ], set_name = "sidi_wind_6", evaluations_list =  evaluations_list, cv_list = cv_list )                                
                     add_eval_sets(work_model = work_model, set_list = [ (sidi_wind, 24, "sidi_wind_24"),(sidi_wind, 6, "sidi_wind_6") ], set_name = "sidi_wind_246", evaluations_list =  evaluations_list, cv_list = cv_list )
                     add_eval_sets(work_model = work_model, set_list = [ (sidi_wind, 24, "sidi_wind_24"),(sidi, 6, "sidi_6") ], set_name = "sidi_6_wind24", evaluations_list =  evaluations_list, cv_list = cv_list )
@@ -592,17 +561,6 @@ if 1:
                     f.close()         
     
                 
-                if 0:
-                    add_eval_sets(work_model = work_model, set_list = [ (guelmin, 6, "guelmin_6") ], set_name = "guelmin_6", evaluations_list =  evaluations_list, cv_list = cv_list )                
-                    add_eval_sets(work_model = work_model, set_list = [ (guelmin_wind, 6, "guelminw_6") ], set_name = "guelminw_6", evaluations_list =  evaluations_list, cv_list = cv_list )                
-                    add_eval_sets(work_model = work_model, set_list = [ (guelmin, 6, "guelmin_6"), (guelmin_wind, 6, "guelminw_6") ], set_name = "guelminwwind_6", evaluations_list =  evaluations_list, cv_list = cv_list )                
-                    add_eval_sets(work_model = work_model, set_list = [ (guelmin, 6, "guelmin_6"), (sidi, 6, "sidi_6") ], set_name = "guelminsidi_6", evaluations_list =  evaluations_list, cv_list = cv_list )                
-                    add_eval_sets(work_model = work_model, set_list = [ (guelmin, 6, "guelmin_6"), (sidi, 6, "sidi_6"), (sidi_wind, 6, "sidi_wind_6"), (guelmin_wind, 6, "guelminw_6") ], set_name = "guelminsidiwwind_6", evaluations_list =  evaluations_list, cv_list = cv_list )
-        
-                    f = gzip.open("fognet_compare_test_guelmin6.gz","wb")
-                    cPickle.dump( (evaluations_list, sub_form) , f,cPickle.HIGHEST_PROTOCOL)
-                    f.close()         
-                else:
                     add_eval_sets(work_model = work_model, set_list = [ (guelmin, 6, "guelmin_6") ], set_name = "guelmin_6", evaluations_list =  evaluations_list, cv_list = cv_list )
                     add_eval_sets(work_model = work_model, set_list = [ (sidi_wind, 24, "sidi_wind_24"),(guelmin, 6, "guelmin_6") ], set_name = "guelmin_6_wind24", evaluations_list =  evaluations_list, cv_list = cv_list )
                     add_eval_sets(work_model = work_model, set_list = [ (guelmin, 6, "guelmin_6"),(sidi, 6, "sidi_6") ,(sidi_pa, 6, "sidi_pa_6") ], set_name = "guelmin_6_sidiwpa6", evaluations_list =  evaluations_list, cv_list = cv_list )
@@ -618,16 +576,9 @@ if 1:
                 if 1:
                     add_eval_sets(work_model = work_model, set_list = [ (sidi, 2, "sidi_2") ], set_name = "sidi_2", evaluations_list =  evaluations_list, cv_list = cv_list )            
                     add_eval_sets(work_model = work_model, set_list = [ (sidi_wind, 2, "sidi_wind_2") ], set_name = "sidi_wind_2", evaluations_list =  evaluations_list, cv_list = cv_list )            
-                    #add_eval_sets(work_model = work_model, set_list = [ (sidi_pa, 2, "sidi_pa_2") ], set_name = "sidi_pa_2", evaluations_list =  evaluations_list, cv_list = cv_list )            
-                    #add_eval_sets(work_model = work_model, set_list = [ (sidi_avg_rain, 2, "sidi_avg_2") ], set_name = "sidi_avg_2", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    #add_eval_sets(work_model = work_model, set_list = [ (sidi_Tg, 2, "sidi_tg_2") ], set_name = "sidi_tg_2", evaluations_list =  evaluations_list, cv_list = cv_list )
                     
                     add_eval_sets(work_model = work_model, set_list = [ (sidi, 2, "sidi_2"), (sidi_wind, 2, "sidi_wind_2") ], set_name = "sidi_wwind_2", evaluations_list =  evaluations_list, cv_list = cv_list )
                     add_eval_sets(work_model = work_model, set_list = [ (sidi, 2, "sidi_2"), (sidi_pa, 2, "sidi_pa_2") ], set_name = "sidi_wpa_2", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    #add_eval_sets(work_model = work_model, set_list = [ (sidi, 2, "sidi_2"), (sidi_avg_rain, 2, "sidi_avg_2") ], set_name = "sidi_wavg_2", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    #add_eval_sets(work_model = work_model, set_list = [ (sidi, 2, "sidi_2"), (sidi_Tg, 2, "sidi_tg_2") ], set_name = "sidi_wtg_2", evaluations_list =  evaluations_list, cv_list = cv_list )
-        
-                    #add_eval_sets(work_model = work_model, set_list = [ (sidi, 2, "sidi_2"),(sidi_pa, 2, "sidi_pa_2"),(sidi_wind, 2, "sidi_wind_2"), (sidi_avg_rain, 2, "sidi_avg_2"), (sidi_Tg, 2, "sidi_tg_2")   ], set_name = "sidi_pawindavgtg_2", evaluations_list =  evaluations_list, cv_list = cv_list )
         
                     f = gzip.open("fognet_compare_test_sidi2d.gz","wb")
                     cPickle.dump( (evaluations_list, sub_form) , f,cPickle.HIGHEST_PROTOCOL)
@@ -637,14 +588,8 @@ if 1:
                 if 1:
                     add_eval_sets(work_model = work_model, set_list = [ (sidi, 4, "sidi_4") ], set_name = "sidi_4", evaluations_list =  evaluations_list, cv_list = cv_list )            
                     add_eval_sets(work_model = work_model, set_list = [ (sidi_wind, 4, "sidi_wind_4") ], set_name = "sidi_wind_4", evaluations_list =  evaluations_list, cv_list = cv_list )            
-                    #add_eval_sets(work_model = work_model, set_list = [ (sidi_pa, 2, "sidi_pa_2") ], set_name = "sidi_pa_2", evaluations_list =  evaluations_list, cv_list = cv_list )            
-                    #add_eval_sets(work_model = work_model, set_list = [ (sidi_avg_rain, 2, "sidi_avg_2") ], set_name = "sidi_avg_2", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    #add_eval_sets(work_model = work_model, set_list = [ (sidi_Tg, 2, "sidi_tg_2") ], set_name = "sidi_tg_2", evaluations_list =  evaluations_list, cv_list = cv_list )
                     
                     add_eval_sets(work_model = work_model, set_list = [ (sidi, 4, "sidi_4"), (sidi_wind, 4, "sidi_wind_4") ], set_name = "sidi_wwind_4", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    #add_eval_sets(work_model = work_model, set_list = [ (sidi, 2, "sidi_2"), (sidi_pa, 2, "sidi_pa_2") ], set_name = "sidi_wpa_2", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    #add_eval_sets(work_model = work_model, set_list = [ (sidi, 2, "sidi_2"), (sidi_avg_rain, 2, "sidi_avg_2") ], set_name = "sidi_wavg_2", evaluations_list =  evaluations_list, cv_list = cv_list )
-                    #add_eval_sets(work_model = work_model, set_list = [ (sidi, 2, "sidi_2"), (sidi_Tg, 2, "sidi_tg_2") ], set_name = "sidi_wtg_2", evaluations_list =  evaluations_list, cv_list = cv_list )
         
                     add_eval_sets(work_model = work_model, set_list = [ (sidi, 4, "sidi_4"),(sidi_pa, 4, "sidi_pa_4"),(sidi_wind, 4, "sidi_wind_4"), (sidi_avg_rain, 4, "sidi_avg_4"), (sidi_Tg, 24, "sidi_tg_24")   ], set_name = "sidi_pawindavgtg_4", evaluations_list =  evaluations_list, cv_list = cv_list )
         
@@ -657,8 +602,6 @@ if 1:
                     add_eval_sets(work_model = work_model, set_list = [ (guelmin_wind, 2, "guelminw_2") ], set_name = "guelminw_2", evaluations_list =  evaluations_list, cv_list = cv_list )                
                     add_eval_sets(work_model = work_model, set_list = [ (guelmin, 2, "guelmin_2"), (guelmin_wind, 2, "guelminw_2") ], set_name = "guelminwwind_2", evaluations_list =  evaluations_list, cv_list = cv_list )
                     add_eval_sets(work_model = work_model, set_list = [ (guelmin, 2, "guelmin_2"),(sidi, 2, "sidi_2")  ], set_name = "guelmin_2_sidi2", evaluations_list =  evaluations_list, cv_list = cv_list )                
-                    #add_eval_sets(work_model = work_model, set_list = [ (guelmin, 6, "guelmin_6"), (sidi, 6, "sidi_6") ], set_name = "guelminsidi_6", evaluations_list =  evaluations_list, cv_list = cv_list )                
-                    #add_eval_sets(work_model = work_model, set_list = [ (guelmin, 6, "guelmin_6"), (sidi, 6, "sidi_6"), (sidi_wind, 6, "sidi_wind_6"), (guelmin_wind, 6, "guelminw_6") ], set_name = "guelminsidiwwind_6", evaluations_list =  evaluations_list, cv_list = cv_list )
                     add_eval_sets(work_model = work_model, set_list = [ (guelmin, 2, "guelmin_2"),(sidi, 2, "sidi_2") ,(sidi_wind, 2, "sidi_wind_2"),(guelmin_wind, 2, "guelmin_wind_2") ], set_name = "guelminwwind_2_sidiwwind2", evaluations_list =  evaluations_list, cv_list = cv_list )
                     add_eval_sets(work_model = work_model, set_list = [ (guelmin, 2, "guelmin_2"),(sidi, 2, "sidi_2") ,(sidi_wind, 2, "sidi_wind_2"),(guelmin_wind, 2, "guelmin_wind_2") ,(sidi_pa, 4, "sidi_pa_4") ], set_name = "guelminwwind_2_sidiwwind2_sidipa4", evaluations_list =  evaluations_list, cv_list = cv_list )
         
@@ -671,8 +614,6 @@ if 1:
                     add_eval_sets(work_model = work_model, set_list = [ (guelmin_wind, 4, "guelminw_4") ], set_name = "guelminw_4", evaluations_list =  evaluations_list, cv_list = cv_list )                
                     add_eval_sets(work_model = work_model, set_list = [ (guelmin, 4, "guelmin_4"), (guelmin_wind, 4, "guelminw_4") ], set_name = "guelminwwind_4", evaluations_list =  evaluations_list, cv_list = cv_list )
                     add_eval_sets(work_model = work_model, set_list = [ (guelmin, 4, "guelmin_4"),(sidi, 4, "sidi_4")  ], set_name = "guelmin_4_sidi4", evaluations_list =  evaluations_list, cv_list = cv_list )                
-                    #add_eval_sets(work_model = work_model, set_list = [ (guelmin, 6, "guelmin_6"), (sidi, 6, "sidi_6") ], set_name = "guelminsidi_6", evaluations_list =  evaluations_list, cv_list = cv_list )                
-                    #add_eval_sets(work_model = work_model, set_list = [ (guelmin, 6, "guelmin_6"), (sidi, 6, "sidi_6"), (sidi_wind, 6, "sidi_wind_6"), (guelmin_wind, 6, "guelminw_6") ], set_name = "guelminsidiwwind_6", evaluations_list =  evaluations_list, cv_list = cv_list )
                     add_eval_sets(work_model = work_model, set_list = [ (guelmin, 4, "guelmin_4"),(sidi, 4, "sidi_4") ,(sidi_wind, 4, "sidi_wind_4"),(guelmin_wind, 4, "guelmin_wind_4") ], set_name = "guelminwwind_4_sidiwwind2", evaluations_list =  evaluations_list, cv_list = cv_list )
     
         
@@ -710,79 +651,13 @@ if 1:
         
                     f = gzip.open("fognet_compare_test_micro4d.gz","wb")
                     cPickle.dump( (evaluations_list, sub_form) , f,cPickle.HIGHEST_PROTOCOL)
-                    f.close()        
-    
-            
-                if 0:
-                    f = gzip.open("fognet_compare_test4.gz","wb")
-                    cPickle.dump( (evaluations_list, sub_form) , f,cPickle.HIGHEST_PROTOCOL)
-                    f.close()         
-
-
-
-                if 0:
-                    add_eval_sets(work_model = work_model, set_list = [ (all_micro_2h, 2, "micro_2"), (agadir, 2, "agadir_2"), (guelmin, 2, "guelmin_2"), (sidi, 2, "sidi_2"), (sidi_wind, 2, "sidiwind_2"), (guelmin_wind, 2, "guelminwind_2"), (sidi_Tg, 24, 'siditg_24'), (sidi_pa, 6, 'sidipa_6'), (sidi_avg_rain, 4, "sidi_avg_4"), (all_micro_2h_460, 2, 'micro460_2') ], set_name = "micro2_full_nulls", evaluations_list =  evaluations_list, cv_list = cv_list , do_dropna = False )
-        
-                    f = gzip.open("fognet_compare_test7.gz","wb")
-                    cPickle.dump( (evaluations_list, sub_form) , f,cPickle.HIGHEST_PROTOCOL)
-                    f.close()         
+                    f.close()                        
 
             else:
                 f = gzip.open("fognet_compare_test_micro4d.gz","r")
                 (evaluations_list, sub_form) = pickle.load(f)
                 f.close()         
 
-
-            if 0:
-                # meilleure CV mais leaderboard baisse
-                add_eval_sets(work_model = work_model, set_list = [ (sidi, 24, "sidi_24"),(sidi, 2, "sidi_2"),(guelmin, 24, "guelmin_24"),(guelmin, 2, "guelmin_2"),(sidi_wind, 24, "sidi_wind_24"),(sidi_wind, 12, "sidi_wind_12"),(guelmin_wind, 24, "guelmin_wind_24"),(guelmin_wind, 12, "guelmin_wind_12") ], set_name = "guelminwwindsidiwwind_2_12_24", evaluations_list =  evaluations_list, cv_list = cv_list )
-                add_eval_sets(work_model = work_model, set_list = [ (sidi, 24, "sidi_24"),(sidi, 6, "sidi_6"),(guelmin, 24, "guelmin_24"),(guelmin, 6, "guelmin_6"),(sidi_wind, 6, "sidi_wind_6"),(guelmin_wind, 6, "guelmin_wind_6") ], set_name = "guelminwwindsidiwwind_6_24", evaluations_list =  evaluations_list, cv_list = cv_list )
-                add_eval_sets(work_model = work_model, set_list = [ (all_micro_2h, 2, "micro_2"),  (all_micro_2h_460, 2, 'micro460_2') ], set_name = "micro2_460_2", evaluations_list =  evaluations_list, cv_list = cv_list )
-                add_eval_sets(work_model = work_model, set_list = [ (all_micro_2h, 2, "micro_2"), (guelmin, 24, "guelmin_24"), (sidi, 24, "sidi_24"), (sidi_wind, 24, "sidiwind_24"), (guelmin_wind, 24, "guelminwind_24") ], set_name = "micro2_sidiwwindguelminwwind24", evaluations_list =  evaluations_list, cv_list = cv_list )
-                add_eval_sets(work_model = work_model, set_list = [ (all_micro_2h, 2, "micro_2"),  (all_micro_2h_460, 2, 'micro460_2'),(sidi, 2, "sidi_2"),(guelmin, 2, "guelmin_2") ], set_name = "micro2_460_sidiguelmin_2", evaluations_list =  evaluations_list, cv_list = cv_list )
-
-                f = gzip.open("fognet_compare_test_micro5.gz","wb")
-                cPickle.dump( (evaluations_list, sub_form) , f,cPickle.HIGHEST_PROTOCOL)
-                f.close()        
-
-
-            if 0:                
-                add_eval_sets(work_model = work_model, set_list = [ (sidi, 24, "sidi_24"),(guelmin, 24, "guelmin_24"),(sidi_wind, 24, "sidi_wind_24"),(agadir_offset,2, 'agadir_offset_2') ], set_name = "guelminsidiwwind_24_agoff", evaluations_list =  evaluations_list, cv_list = cv_list )
-                add_eval_sets(work_model = work_model, set_list = [ (sidi, 12, "sidi_12"),(guelmin, 12, "guelmin_12"),(sidi_wind, 24, "sidi_wind_24"),(agadir_offset,2, 'agadir_offset_2') ], set_name = "guelminsidiwwind_12_agoff", evaluations_list =  evaluations_list, cv_list = cv_list )
-                add_eval_sets(work_model = work_model, set_list = [ (sidi, 12, "sidi_12"),(guelmin, 12, "guelmin_12"),(sidi_wind, 12, "sidi_wind_24"),(guelmin_wind, 12, "guelmin_wind_24"),(agadir_offset,2, 'agadir_offset_2') ], set_name = "guelminwwindsidiwwind_12_agoff", evaluations_list =  evaluations_list, cv_list = cv_list )
-                
-                add_eval_sets(work_model = work_model, set_list = [ (all_micro_2h, 2, "micro_2"), (all_micro_offset, 2, 'micro_off_2') ], set_name = "micro_2_off", evaluations_list =  evaluations_list, cv_list = cv_list )
-                add_eval_sets(work_model = work_model, set_list = [ (all_micro_2h, 2, "micro_2"), (guelmin, 2, "guelmin_2"), (sidi, 2, "sidi_2"), (all_micro_offset, 2, 'micro_off_2')  ], set_name = "micro_sidiguelmin_2_off", evaluations_list =  evaluations_list, cv_list = cv_list )
-                                    
-                add_eval_sets(work_model = work_model, set_list = [ (all_micro_2h, 2, "micro_2"), (guelmin, 24, "guelmin_24"), (sidi, 24, "sidi_24"), (sidi_wind, 24, "sidiwind_24"), (guelmin_wind, 24, "guelminwind_24"), (all_micro_offset, 2, 'micro_off_2') ], set_name = "micro2_sidiwwindguelminwwind24_off", evaluations_list =  evaluations_list, cv_list = cv_list )
-                add_eval_sets(work_model = work_model, set_list = [ (all_micro_2h, 2, "micro_2"), (guelmin, 12, "guelmin_12"), (sidi, 12, "sidi_12"), (sidi_wind, 12, "sidiwind_12"), (guelmin_wind, 12, "guelminwind_12"), (all_micro_offset, 2, 'micro_off_2') ], set_name = "micro2_sidiwwindguelminwwind12_off", evaluations_list =  evaluations_list, cv_list = cv_list )
-
-
-                f = gzip.open("fognet_compare_test_micro6.gz","wb")
-                cPickle.dump( (evaluations_list, sub_form) , f,cPickle.HIGHEST_PROTOCOL)
-                f.close()        
-
-            if 0:
-                #add_eval_sets(work_model = work_model, set_list = [ (sidi, 24, "sidi_24"),(sidi,12, "sidi_12"), (guelmin, 24, "guelmin_24"),(guelmin, 12, "guelmin_12"), (sidi_wind, 24, "sidi_wind_24"),(sidi_wind, 12, "sidi_wind_12"),(guelmin_wind, 24, "guelmin_wind_24"),(guelmin_wind, 12, "guelmin_wind_12") ], set_name = "guelminwwindsidiwwind_12_24", evaluations_list =  evaluations_list, cv_list = cv_list )
-                add_eval_sets(work_model = work_model, set_list = [ (sidi, 4, "sidi_4"), (guelmin, 2, "guelmin_2"), (sidi_wind, 4, "sidi_wind_4"),(guelmin_wind, 2, "guelmin_wind_2") ], set_name = "guelminwwind2sidiwwind4", evaluations_list =  evaluations_list, cv_list = cv_list )
-                add_eval_sets(work_model = work_model, set_list = [ (all_micro_2h, 2, "micro_2"), (guelmin, 2, "guelmin_2"), (sidi, 4, "sidi_4") ], set_name = "micro_sidi4guelmin2", evaluations_list =  evaluations_list, cv_list = cv_list )
-                
-                # la seule meilleure en cv mais moins bonne
-                add_eval_sets(work_model = work_model, set_list = [ (all_micro_2h, 2, "micro_2"), (guelmin, 2, "guelmin_2"), (sidi, 4, "sidi_4"), (sidi_wind, 4, "sidiwind_4") ], set_name = "micro_sidiwwind4guelmin2", evaluations_list =  evaluations_list, cv_list = cv_list )
-                
-                add_eval_sets(work_model = work_model, set_list = [ (all_micro_2h, 2, "micro_2"), (guelmin, 2, "guelmin_2"), (guelmin_wind, 2, "guelminwind_2"), (sidi, 4, "sidi_4"), (sidi_wind, 4, "sidiwind_4") ], set_name = "micro_sidiwwind4guelminwwind2", evaluations_list =  evaluations_list, cv_list = cv_list )
-
-                f = gzip.open("fognet_compare_test_micro7.gz","wb")
-                cPickle.dump( (evaluations_list, sub_form) , f,cPickle.HIGHEST_PROTOCOL)
-                f.close()        
-
-
-            if 0:
-                add_eval_sets(work_model = work_model, set_list = [  (agadir, 2, "agadir_2"), (guelmin, 2, "guelmin_2"), (sidi, 2, "sidi_2"), (sidi_wind, 2, "sidiwind_2"), (guelmin_wind, 2, "guelminwind_2"),  (guelmin, 6, "guelmin_6"), (sidi, 6, "sidi_6"), (sidi_wind, 6, "sidiwind_6"), (guelmin_wind, 6, "guelminwind_6"),  (guelmin, 24, "guelmin_24"), (sidi, 24, "sidi_24"), (sidi_wind, 24, "sidiwind_24"), (guelmin_wind, 24, "guelminwind_24"), (sidi_Tg, 24, 'siditg_24'), (sidi_pa, 6, 'sidipa_6'), (sidi_avg_rain, 4, "sidi_avg_4") ], set_name = "nomicro_full_nulls", evaluations_list =  evaluations_list, cv_list = cv_list , do_dropna = False )
-
-                f = gzip.open("fognet_compare_test_nomicro_nulls.gz","wb")
-                cPickle.dump( (evaluations_list, sub_form) , f,cPickle.HIGHEST_PROTOCOL)
-                f.close()        
 
                             
             # Now we have a list of "models", we compare them with each other so that we can sort them
